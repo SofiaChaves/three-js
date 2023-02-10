@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import './style.css';
 
@@ -19,7 +20,14 @@ const material = new THREE.MeshStandardMaterial({
     color: '#00aaaa',
 });
 const mesh = new THREE.Mesh(geometry, material);
-scene.add(mesh);
+// scene.add(mesh);
+
+const loader = new GLTFLoader();
+loader.load('shiba/scene.gltf', (gltf) => {
+    const scale = 3.2;
+    gltf.scene.scale.set(scale, scale, scale);
+    scene.add(gltf.scene);
+});
 
 //Light
 const light = new THREE.PointLight('#ffffff', 1, 100);
