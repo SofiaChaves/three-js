@@ -11,8 +11,7 @@ const sizes = {
 
 //Scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color('#0a0a0a');
-scene.backgroundIntensity = 5;
+//scene.background = new THREE.Color('#fff');
 
 //Object
 const geometry = new THREE.SphereGeometry(3, 64, 64);
@@ -23,17 +22,18 @@ const mesh = new THREE.Mesh(geometry, material);
 // scene.add(mesh);
 
 const loader = new GLTFLoader();
-loader.load('shiba/scene.gltf', (gltf) => {
-    const scale = 3.2;
+loader.load('the_smoking_room/scene.gltf', (gltf) => {
+    const scale = 17;
+    gltf.scene.position.set(0, -27, -3.5);
     gltf.scene.scale.set(scale, scale, scale);
     scene.add(gltf.scene);
 });
 
 //Light
-const light = new THREE.PointLight('#ffffff', 1, 100);
+const light = new THREE.PointLight('#ffffff', 5, 100);
 light.position.set(0, 10, 10);
 scene.add(light);
-const ambientLight = new THREE.AmbientLight('#222'); // soft white light
+const ambientLight = new THREE.AmbientLight('#333');
 scene.add(ambientLight);
 
 //Camera
@@ -44,13 +44,13 @@ camera.position.z = 15;
 const canvas = document.querySelector('.webgl');
 const renderer = new THREE.WebGLRenderer({ canvas });
 renderer.setSize(sizes.width, sizes.height);
-renderer.setPixelRatio(2);
+renderer.setPixelRatio(3);
 renderer.render(scene, camera);
 
 //Controls
 const controls = new OrbitControls(camera, canvas);
 controls.autoRotate = true;
-controls.autoRotateSpeed = 4;
+controls.autoRotateSpeed = 1;
 controls.enableDamping = true;
 controls.enablePan = false;
 
